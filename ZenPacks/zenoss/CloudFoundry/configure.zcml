@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+    <!-- Import directRouter Directive -->
+    <include package="Products.ZenUtils.extdirect.zope" file="meta.zcml"/>
+
+    <!-- Define the Router and Facade -->
+    <browser:directRouter
+        name="cloudfoundry_router"
+        for="*"
+        class=".routers.CloudFoundryRouter"
+        namespace="Zenoss.remote"
+        permission="zenoss.View"
+        />
+
+    <adapter factory=".facades.CloudFoundryFacade"
+        provides=".interfaces.ICloudFoundryFacade"
+        name="cloudfoundry"
+        for="*"
+        />
+
+    <!-- Define Device Loader -->
+    <utility component=".deviceloaders.CloudFoundryLoader"
+        name="cloudfoundry"
+        provides="Products.ZenModel.interfaces.IDeviceLoader"
+        />
+
+    <!-- Info Adapters -->
+    <adapter
+        factory=".info.EndpointInfo"
+        for=".Endpoint.Endpoint"
+        provides=".interfaces.IEndpointInfo"
+        />
+
+    <adapter
+        factory=".info.AppInfo"
+        for=".App.App"
+        provides=".interfaces.IAppInfo"
+        />
+
+    <adapter
+        factory=".info.AppInstanceInfo"
+        for=".AppInstance.AppInstance"
+        provides=".interfaces.IAppInstanceInfo"
+        />
+
+    <adapter
+        factory=".info.FrameworkInfo"
+        for=".Framework.Framework"
+        provides=".interfaces.IFrameworkInfo"
+        />
+
+    <adapter
+        factory=".info.RuntimeInfo"
+        for=".Runtime.Runtime"
+        provides=".interfaces.IRuntimeInfo"
+        />
+
+    <adapter
+        factory=".info.AppServerInfo"
+        for=".AppServer.AppServer"
+        provides=".interfaces.IAppServerInfo"
+        />
+
+    <adapter
+        factory=".info.SystemServiceInfo"
+        for=".SystemService.SystemService"
+        provides=".interfaces.ISystemServiceInfo"
+        />
+
+    <adapter
+        factory=".info.ProvisionedServiceInfo"
+        for=".ProvisionedService.ProvisionedService"
+        provides=".interfaces.IProvisionedServiceInfo"
+        />
+
+    <!-- Datasource Adapters
+    <adapter factory=".info.VCloudStatusDataSourceInfo"
+        for=".datasources.VCloudStatusDataSource.VCloudStatusDataSource"
+        provides=".interfaces.IVCloudStatusDataSourceInfo"
+        /> -->
+
+    <!-- Include Browser Code -->
+    <include package=".browser"/>		
+
+</configure>
+

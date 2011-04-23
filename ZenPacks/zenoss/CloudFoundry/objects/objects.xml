@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<objects>
+<!-- ('', 'zport', 'dmd', 'Devices', 'CloudFoundry') -->
+<object id='/zport/dmd/Devices/CloudFoundry' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<property id='zendoc' type='string'>
+CloudFoundry Endpoints
+</property>
+<property type="string" id="description" mode="w" >
+CloudFoundry Endpoints
+</property>
+<property visible="True" type="lines" id="zCollectorPlugins" >
+['zenoss.CloudFoundry']
+</property>
+<property visible="True" type="boolean" id="zPingMonitorIgnore" >
+True
+</property>
+<property visible="True" type="lines" id="zDeviceTemplates" >
+['CloudFoundryEndpoint']
+</property>
+<property visible="True" type="boolean" id="zSnmpMonitorIgnore" >
+True
+</property>
+<property visible="True" type="string" id="zPythonClass" >
+ZenPacks.zenoss.CloudFoundry.Endpoint
+</property>
+</object>
+</objects>
