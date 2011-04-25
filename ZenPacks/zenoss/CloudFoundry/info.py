@@ -1,6 +1,7 @@
 from zope.component import adapts
 from zope.interface import implements
 
+from Products.Zuul.decorators import info
 from Products.Zuul.infos import ProxyProperty
 from Products.Zuul.infos.component import ComponentInfo
 from Products.Zuul.infos.device import DeviceInfo
@@ -55,7 +56,15 @@ class EndpointInfo(DeviceInfo):
     def utilServices(self):
         return "{0} / {1}".format(self.usageServices, self.limitServices)
 
-class AppInfo(ComponentInfo):
+class CloudFoundryComponentInfo(ComponentInfo):
+    @property
+    def entity(self):
+        return {
+            'uid': self._object.getPrimaryUrlPath(),
+            'name': self._object.titleOrId(),
+            }
+
+class AppInfo(CloudFoundryComponentInfo):
     implements(IAppInfo)
     adapts(App)
 
@@ -73,27 +82,120 @@ class AppInfo(ComponentInfo):
     resourcesDisk = CollectedOrModeledProperty('resourcesDisk')
     resourcesFDS = CollectedOrModeledProperty('resourcesFDS')
 
-class AppInstanceInfo(ComponentInfo):
+class AppInstanceInfo(CloudFoundryComponentInfo):
     implements(IAppInstanceInfo)
     adapts(AppInstance)
 
-class FrameworkInfo(ComponentInfo):
+    cfIndex = ProxyProperty("cfIndex")
+    cfState = ProxyProperty("cfState")
+    cfSince = ProxyProperty("cfSince")
+
+    @property
+    @info
+    def cfApp(self):
+        return self._object.cfApp()
+
+class FrameworkInfo(CloudFoundryComponentInfo):
     implements(IFrameworkInfo)
     adapts(Framework)
 
-class RuntimeInfo(ComponentInfo):
+    cfName = ProxyProperty("cfName")
+    cfDetection = ProxyProperty("cfDetection")
+
+    @property
+    def cfDetection(self):
+        detections = []
+        for detection in self._object.cfDetection:
+            glob, rule = detection.items()[0]
+            if rule == True:
+                detections.append(glob)
+            elif rule == False:
+                detections.append("!{0}".format(glob))
+            else:
+                detections.append("{0} ({1})".format(glob, rule))
+
+        return detections
+
+    @property
+    def cfRuntimeCount(self):
+        return len(self._object.cfRuntimes.objectIds())
+
+    @property
+    def cfAppServerCount(self):
+        return len(self._object.cfAppServers.objectIds())
+
+class RuntimeInfo(CloudFoundryComponentInfo):
     implements(IRuntimeInfo)
     adapts(Runtime)
 
-class AppServerInfo(ComponentInfo):
+    cfName = ProxyProperty("cfName")
+    cfDescription = ProxyProperty("cfDescription")
+    cfVersion = ProxyProperty("cfVersion")
+
+    @property
+    @info
+    def cfFramework(self):
+        return self._object.cfFramework()
+
+class AppServerInfo(CloudFoundryComponentInfo):
     implements(IAppServerInfo)
     adapts(AppServer)
 
-class SystemServiceInfo(ComponentInfo):
+    cfName = ProxyProperty("cfName")
+    cfDescription = ProxyProperty("cfDescription")
+    cfVersion = ProxyProperty("cfVersion")
+
+    @property
+    @info
+    def cfFramework(self):
+        return self._object.cfFramework()
+
+class SystemServiceInfo(CloudFoundryComponentInfo):
     implements(ISystemServiceInfo)
     adapts(SystemService)
 
-class ProvisionedServiceInfo(ComponentInfo):
+    cfId = ProxyProperty("cfId")
+    cfName = ProxyProperty("cfName")
+    cfDescription = ProxyProperty("cfDescription")
+    cfVersion = ProxyProperty("cfVersion")
+    cfVendor = ProxyProperty("cfVendor")
+    cfType = ProxyProperty("cfType")
+    cfTiers = ProxyProperty("cfTiers")
+
+    @property
+    def cfProvisionedCount(self):
+        count = 0
+        for service in self._object.cfEndpoint().cfProvisionedServices():
+            if service.cfType == self._object.cfType \
+                and service.cfVendor == self._object.cfVendor \
+                and service.cfVersion == self._object.cfVersion:
+                count += 1
+
+        return count
+
+class ProvisionedServiceInfo(CloudFoundryComponentInfo):
     implements(IProvisionedServiceInfo)
     adapts(ProvisionedService)
+
+    cfName = ProxyProperty("cfName")
+    cfVersion = ProxyProperty("cfVersion")
+    cfVendor = ProxyProperty("cfVendor")
+    cfType = ProxyProperty("cfType")
+    cfTier = ProxyProperty("cfTier")
+    cfMetaCreated = ProxyProperty("cfMetaCreated")
+    cfMetaUpdated = ProxyProperty("cfMetaUpdated")
+    cfMetaVersion = ProxyProperty("cfMetaVersion")
+    cfMetaTags = ProxyProperty("cfMetaTags")
+    cfProperties = ProxyProperty("cfProperties")
+
+    @property
+    @info
+    def cfSystemService(self):
+        for service in self._object.cfEndpoint().cfSystemServices():
+            if service.cfType == self._object.cfType \
+                and service.cfVendor == self._object.cfVendor \
+                and service.cfVersion == self._object.cfVersion:
+                return service
+
+        return None
 

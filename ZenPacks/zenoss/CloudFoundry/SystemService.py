@@ -3,6 +3,7 @@ from persistent.mapping import PersistentMapping
 
 from Products.ZenModel.DeviceComponent import DeviceComponent
 from Products.ZenModel.ManagedEntity import ManagedEntity
+from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
 from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 
 class SystemService(DeviceComponent, ManagedEntity):
@@ -33,6 +34,16 @@ class SystemService(DeviceComponent, ManagedEntity):
             )
         ),
     )
+
+    # Meta-data: Zope object views and actions
+    factory_type_information = ({
+        'actions': ({ 
+            'id': 'perfConf', 
+            'name': 'Template', 
+            'action': 'objTemplates', 
+            'permissions': (ZEN_CHANGE_DEVICE,), 
+            },), 
+        },)
 
     def device(self):
         return self.cfEndpoint()

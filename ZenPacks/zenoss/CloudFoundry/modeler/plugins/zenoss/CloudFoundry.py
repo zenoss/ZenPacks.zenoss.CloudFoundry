@@ -187,6 +187,7 @@ class CloudFoundry(PythonPlugin):
                     obj_maps.append(ObjectMap(data=dict(
                         id=prepId(data['id']),
                         title=name,
+                        cfId=data['id'],
                         cfName=name,
                         cfVersion=data['version'],
                         cfDescription=data['description'],
