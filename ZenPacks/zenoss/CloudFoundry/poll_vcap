@@ -1,45 +1,88 @@
 #!/usr/bin/env python
 import json
+import md5
 import os
 import sys
+import tempfile
+import time
 
 sys.path.insert(0, os.path.dirname(__file__))
 import api
 
 class VCAPPoller(object):
+    _targetName = None
+    _email = None
     _target = None
     _data = None
 
     def __init__(self, target, email, password):
+        self._targetName = target
+        self._email = email
         self._target = api.Target(target, email, password)
 
-    def getData(self):
+    def _getTempFilename(self):
+        target_hash = md5.md5('{0}+{1}'.format(
+            self._targetName, self._email)).hexdigest()
+
+        return os.path.join(
+            tempfile.gettempdir(),
+            '.zenoss_vcap_{0}'.format(target_hash))
+
+
+    def _cacheData(self):
+        tmpfile = self._getTempFilename()
+        tmp = open(tmpfile, 'w')
+        json.dump(self._data, tmp)
+        tmp.close()
+
+    def _loadData(self):
         if self._data:
-            return self._data
+            return
 
-        self._data = {
-            'info': self._target.info,
-            'apps': self._target.apps,
-            'systemServices': self._target.systemServices,
-            'provisionedServices': self._target.provisionedServices,
-        }
+        tmpfile = self._getTempFilename()
+        if not os.path.isfile(tmpfile):
+            return None
 
-        # app_uris exists under info/limits, but not info/usage. Resolving.
-        self._data['info']['usage']['app_uris'] = 0
+        # Make sure temporary data isn't too stale.
+        if os.stat(tmpfile).st_mtime < (time.time() - 50):
+            os.unlink(tmpfile)
+            return None
 
-        for app in self._data['apps']:
-            name = app['name']
+        tmp = open(tmpfile, 'r')
+        self._data = json.load(tmp)
+        tmp.close()
 
-            # See note about app_uris above.
-            self._data['info']['usage']['app_uris'] += len(app['uris'])
+        self._cacheData()
 
-            app['instances'] = self._target.getAppInstances(name)['instances']
+    def getData(self):
+        self._loadData()
 
-            app_stats = self._target.getAppStats(name)
+        if not self._data:
+            self._data = {
+                'info': self._target.info,
+                'apps': self._target.apps,
+                'systemServices': self._target.systemServices,
+                'provisionedServices': self._target.provisionedServices,
+            }
 
-            for instance in app['instances']:
-                instance['stats'] = app_stats[str(instance['index'])]
+            # app_uris exists under info/limits, but not info/usage. Resolving.
+            self._data['info']['usage']['app_uris'] = 0
 
+            for app in self._data['apps']:
+                name = app['name']
+
+                # See note about app_uris above.
+                self._data['info']['usage']['app_uris'] += len(app['uris'])
+
+                app['instances'] = self._target.getAppInstances(
+                    name)['instances']
+
+                app_stats = self._target.getAppStats(name)
+
+                for instance in app['instances']:
+                    instance['stats'] = app_stats[str(instance['index'])]
+
+        self._cacheData()
         return self._data
 
     def printJSON(self):
