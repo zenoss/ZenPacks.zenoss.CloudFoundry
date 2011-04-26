@@ -31,7 +31,7 @@ class VCAPPoller(object):
             name = app['name']
 
             # See note about app_uris above.
-            results['info']['usage']['app_uris'] += len(app['uris'])
+            self._data['info']['usage']['app_uris'] += len(app['uris'])
 
             app['instances'] = self._target.getAppInstances(name)['instances']
 
