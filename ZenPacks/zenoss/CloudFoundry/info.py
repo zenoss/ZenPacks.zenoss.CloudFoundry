@@ -65,7 +65,7 @@ class EndpointInfo(DeviceInfo):
     def utilServices(self):
         return "{0} of {1} ({2:.0%})".format(
             self.usageServices, self.limitServices,
-            float(self.usageServices), self.limitServices)
+            float(self.usageServices) / self.limitServices)
 
 class CloudFoundryComponentInfo(ComponentInfo):
     @property

@@ -24,8 +24,14 @@ class VCAPPoller(object):
             'provisionedServices': self._target.provisionedServices,
         }
 
+        # app_uris exists under info/limits, but not info/usage. Resolving.
+        self._data['info']['usage']['app_uris'] = 0
+
         for app in self._data['apps']:
             name = app['name']
+
+            # See note about app_uris above.
+            results['info']['usage']['app_uris'] += len(app['uris'])
 
             app['instances'] = self._target.getAppInstances(name)['instances']
 

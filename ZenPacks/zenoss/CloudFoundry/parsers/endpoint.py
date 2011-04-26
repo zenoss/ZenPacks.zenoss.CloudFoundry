@@ -12,14 +12,13 @@ class endpoint(CommandParser):
         limitMemory = data['info']['limits']['memory'] * 1024 * 1024
         limitServices = data['info']['limits']['services']
 
-        usageAppURIs = 0
         usageAppInstances = 0
         usageAppRunningInstances = 0
         for app in data['apps']:
-            usageAppURIs += len(app['uris'])
             usageAppInstances += len(app['instances'])
             usageAppRunningInstances += app['runningInstances']
 
+        usageAppURIs = data['info']['usage']['app_uris']
         usageApps = data['info']['usage']['apps']
         usageMemory = data['info']['usage']['memory'] * 1024 * 1024
         usageServices = data['info']['usage']['services']
