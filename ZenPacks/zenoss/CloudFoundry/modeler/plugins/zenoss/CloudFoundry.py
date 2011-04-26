@@ -106,21 +106,21 @@ class CloudFoundry(PythonPlugin):
             )))
 
             rel_maps.extend(self.getAppInstancesRelMaps(
-                data['instances'], 'cfApps/{0}'.format(app_id)))
+                app_id, data['instances'], 'cfApps/{0}'.format(app_id)))
 
         return [RelationshipMap(
             relname='cfApps',
             modname='ZenPacks.zenoss.CloudFoundry.App',
             objmaps=obj_maps)] + rel_maps
 
-    def getAppInstancesRelMaps(self, instances, compname):
+    def getAppInstancesRelMaps(self, appId, instances, compname):
         obj_maps = []
 
         for data in instances:
             instance_id = prepId(str(data['index']))
             stats = data['stats']['stats']
             obj_maps.append(ObjectMap(data=dict(
-                id=instance_id,
+                id='{0}_{1}'.format(appId, instance_id),
                 title=instance_id,
                 cfIndex=data['index'],
                 cfState=data['state'],

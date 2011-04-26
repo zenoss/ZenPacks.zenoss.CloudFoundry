@@ -92,7 +92,7 @@ class VCAPPoller(object):
 if __name__ == "__main__":
     target = email = password = None
     try:
-        target, email, password = sys.argv[1:]
+        target, email, password = sys.argv[1:4]
     except ValueError:
         print >> sys.stderr, "Usage: {0} <target> <email> <password>".format(
             sys.argv[0])
