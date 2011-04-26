@@ -16,7 +16,10 @@ class endpoint(CommandParser):
         usageAppRunningInstances = 0
         for app in data['apps']:
             usageAppInstances += len(app['instances'])
-            usageAppRunningInstances += app['runningInstances']
+
+            runningInstances = app.get('runningInstances', None)
+            if runningInstances is not None:
+                usageAppRunningInstances += runningInstances
 
         usageAppURIs = data['info']['usage']['app_uris']
         usageApps = data['info']['usage']['apps']
