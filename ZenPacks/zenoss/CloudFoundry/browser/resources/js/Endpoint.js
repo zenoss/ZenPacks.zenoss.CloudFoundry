@@ -375,23 +375,13 @@ ZC.CloudFoundryFrameworkPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
             fields: [
                 {name: 'uid'},
                 {name: 'name'},
-                {name: 'severity'},
                 {name: 'entity'},
                 {name: 'cfDetection'},
                 {name: 'cfRuntimeCount'},
                 {name: 'cfAppServerCount'},
-                {name: 'cfAppCount'},
-                {name: 'monitor'},
-                {name: 'monitored'}
+                {name: 'cfAppCount'}
             ],
             columns: [{
-                id: 'severity',
-                dataIndex: 'severity',
-                header: _t('Events'),
-                renderer: Zenoss.render.severity,
-                sortable: true,
-                width: 50
-            },{
                 id: 'entity',
                 dataIndex: 'entity',
                 header: _t('Name'),
@@ -421,13 +411,6 @@ ZC.CloudFoundryFrameworkPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 header: _t('# Apps'),
                 sortable: true,
                 width: 50
-            },{
-                id: 'monitored',
-                dataIndex: 'monitored',
-                header: _t('Monitored'),
-                renderer: Zenoss.render.checkbox,
-                sortable: true,
-                width: 65
             }]
         });
         ZC.CloudFoundryFrameworkPanel.superclass.constructor.call(this, config);
@@ -447,23 +430,13 @@ ZC.CloudFoundryRuntimePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
             fields: [
                 {name: 'uid'},
                 {name: 'name'},
-                {name: 'severity'},
                 {name: 'cfFramework'},
                 {name: 'entity'},
                 {name: 'cfDescription'},
                 {name: 'cfVersion'},
-                {name: 'cfAppCount'},
-                {name: 'monitor'},
-                {name: 'monitored'}
+                {name: 'cfAppCount'}
             ],
             columns: [{
-                id: 'severity',
-                dataIndex: 'severity',
-                header: _t('Events'),
-                renderer: Zenoss.render.severity,
-                sortable: true,
-                width: 50
-            },{
                 id: 'cfFramework',
                 dataIndex: 'cfFramework',
                 header: _t('Framework'),
@@ -490,13 +463,6 @@ ZC.CloudFoundryRuntimePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 header: _t('# Apps'),
                 sortable: true,
                 width: 50
-            },{
-                id: 'monitored',
-                dataIndex: 'monitored',
-                header: _t('Monitored'),
-                renderer: Zenoss.render.checkbox,
-                sortable: true,
-                width: 65
             }]
         });
         ZC.CloudFoundryRuntimePanel.superclass.constructor.call(this, config);
@@ -516,21 +482,11 @@ ZC.CloudFoundryAppServerPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
             fields: [
                 {name: 'uid'},
                 {name: 'name'},
-                {name: 'severity'},
                 {name: 'cfFramework'},
                 {name: 'entity'},
-                {name: 'cfDescription'},
-                {name: 'monitor'},
-                {name: 'monitored'}
+                {name: 'cfDescription'}
             ],
             columns: [{
-                id: 'severity',
-                dataIndex: 'severity',
-                header: _t('Events'),
-                renderer: Zenoss.render.severity,
-                sortable: true,
-                width: 50
-            },{
                 id: 'cfFramework',
                 dataIndex: 'cfFramework',
                 header: _t('Framework'),
@@ -546,13 +502,6 @@ ZC.CloudFoundryAppServerPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 dataIndex: 'cfDescription',
                 header: _t('Description'),
                 sortable: true
-            },{
-                id: 'monitored',
-                dataIndex: 'monitored',
-                header: _t('Monitored'),
-                renderer: Zenoss.render.checkbox,
-                sortable: true,
-                width: 65
             }]
         });
         ZC.CloudFoundryAppServerPanel.superclass.constructor.call(this, config);
@@ -572,7 +521,6 @@ ZC.CloudFoundrySystemServicePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel
             fields: [
                 {name: 'uid'},
                 {name: 'name'},
-                {name: 'severity'},
                 {name: 'cfId'},
                 {name: 'entity'},
                 {name: 'cfDescription'},
@@ -580,18 +528,9 @@ ZC.CloudFoundrySystemServicePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel
                 {name: 'cfVendor'},
                 {name: 'cfType'},
                 {name: 'cfTiers'},
-                {name: 'cfProvisionedCount'},
-                {name: 'monitor'},
-                {name: 'monitored'}
+                {name: 'cfProvisionedCount'}
             ],
             columns: [{
-                id: 'severity',
-                dataIndex: 'severity',
-                header: _t('Events'),
-                renderer: Zenoss.render.severity,
-                sortable: true,
-                width: 50
-            },{
                 id: 'cfId',
                 dataIndex: 'cfId',
                 header: _t('ID'),
@@ -639,13 +578,6 @@ ZC.CloudFoundrySystemServicePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel
                 header: _t('# Provisioned'),
                 sortable: true,
                 width: 80
-            },{
-                id: 'monitored',
-                dataIndex: 'monitored',
-                header: _t('Monitored'),
-                renderer: Zenoss.render.checkbox,
-                sortable: true,
-                width: 65
             }]
         });
         ZC.CloudFoundrySystemServicePanel.superclass.constructor.call(this, config);
@@ -665,24 +597,14 @@ ZC.CloudFoundryProvisionedServicePanel = Ext.extend(ZC.CloudFoundryComponentGrid
             fields: [
                 {name: 'uid'},
                 {name: 'name'},
-                {name: 'severity'},
                 {name: 'cfSystemService'},
                 {name: 'entity'},
                 {name: 'cfVersion'},
                 {name: 'cfVendor'},
                 {name: 'cfType'},
-                {name: 'cfTier'},
-                {name: 'monitor'},
-                {name: 'monitored'}
+                {name: 'cfTier'}
             ],
             columns: [{
-                id: 'severity',
-                dataIndex: 'severity',
-                header: _t('Events'),
-                renderer: Zenoss.render.severity,
-                sortable: true,
-                width: 50
-            },{
                 id: 'cfSystemService',
                 dataIndex: 'cfSystemService',
                 header: _t('System Service'),
@@ -718,13 +640,6 @@ ZC.CloudFoundryProvisionedServicePanel = Ext.extend(ZC.CloudFoundryComponentGrid
                 header: _t('Tier'),
                 sortable: true,
                 width: 70
-            },{
-                id: 'monitored',
-                dataIndex: 'monitored',
-                header: _t('Monitored'),
-                renderer: Zenoss.render.checkbox,
-                sortable: true,
-                width: 65
             }]
         });
         ZC.CloudFoundryProvisionedServicePanel.superclass.constructor.call(this, config);
