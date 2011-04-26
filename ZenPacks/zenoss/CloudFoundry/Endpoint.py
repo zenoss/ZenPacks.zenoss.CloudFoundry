@@ -1,7 +1,7 @@
 from Globals import InitializeClass
 
 from Products.ZenModel.Device import Device
-from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
+from Products.ZenModel.ZenossSecurity import ZEN_VIEW, ZEN_CHANGE_DEVICE
 from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 
 from ZenPacks.zenoss.CloudFoundry.util import CollectedOrModeledMixin
@@ -70,12 +70,17 @@ class Endpoint(Device, CollectedOrModeledMixin):
     # Meta-data: Zope object views and actions
     factory_type_information = ({
         'actions': ({ 
+            'id': 'perfServer',
+            'name': 'Graphs',
+            'action': 'viewDevicePerformance',
+            'permissions': (ZEN_VIEW,),
+        },{
             'id': 'perfConf', 
             'name': 'Template', 
             'action': 'objTemplates', 
             'permissions': (ZEN_CHANGE_DEVICE,), 
-            },), 
-        },)
+        },), 
+    },)
 
 InitializeClass(Endpoint)
 
