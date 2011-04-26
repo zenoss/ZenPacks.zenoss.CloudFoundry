@@ -28,9 +28,15 @@ class CloudFoundry(PythonPlugin):
             'provisionedServices': target.provisionedServices,
         }
 
+        # app_uris exists under info/limits, but not info/usage. Resolving.
+        results['info']['usage']['app_uris'] = 0
+
         log.info('Requesting app-specific information')
         for app in results['apps']:
             name = app['name']
+
+            # See note about app_uris above.
+            results['info']['usage']['app_uris'] += len(app['uris'])
 
             log.info('  .. instances for {0}'.format(name))
             app['instances'] = target.getAppInstances(name)['instances']
@@ -57,10 +63,11 @@ class CloudFoundry(PythonPlugin):
             cfSupport=info['support'],
             modeled_limitAppURIs=info['limits']['app_uris'],
             modeled_limitApps=info['limits']['apps'],
-            modeled_limitMemory=info['limits']['memory'],
+            modeled_limitMemory=info['limits']['memory'] * 1024 * 1024,
             modeled_limitServices=info['limits']['services'],
+            modeled_usageAppURIs=info['usage']['app_uris'],
             modeled_usageApps=info['usage']['apps'],
-            modeled_usageMemory=info['usage']['memory'],
+            modeled_usageMemory=info['usage']['memory'] * 1024 * 1024,
             modeled_usageServices=info['usage']['services'],
         )))
 
@@ -89,6 +96,13 @@ class CloudFoundry(PythonPlugin):
                 cfMetaVersion=data['meta']['version'],
                 setCFURIs=data['uris'],
                 setCFServices=data['services'],
+                cfStagingModel=data['staging']['model'],
+                cfStagingStack=data['staging']['stack'],
+                modeled_instances=len(data['instances']),
+                modeled_runningInstances=data['runningInstances'],
+                modeled_resourcesMemory=data['resources']['memory'] * 1048576,
+                modeled_resourcesDisk=data['resources']['disk'] * 1048576,
+                modeled_resourcesFDS=data['resources']['fds']
             )))
 
             rel_maps.extend(self.getAppInstancesRelMaps(
@@ -104,12 +118,23 @@ class CloudFoundry(PythonPlugin):
 
         for data in instances:
             instance_id = prepId(str(data['index']))
+            stats = data['stats']['stats']
             obj_maps.append(ObjectMap(data=dict(
                 id=instance_id,
                 title=instance_id,
                 cfIndex=data['index'],
                 cfState=data['state'],
                 cfSince=data['since'],
+                cfCores=stats['cores'],
+                cfHost=stats['host'],
+                cfPort=stats['port'],
+                modeled_memoryQuota=stats['mem_quota'],
+                modeled_diskQuota=stats['disk_quota'],
+                modeled_fdsQuota=stats['fds_quota'],
+                modeled_uptime=stats['uptime'],
+                modeled_usageCPU=stats['usage']['cpu'],
+                modeled_usageMemory=stats['usage']['mem'],
+                modeled_usageDisk=stats['usage']['disk'],
             )))
 
         return [RelationshipMap(

@@ -18,6 +18,8 @@ class App(DeviceComponent, ManagedEntity, CollectedOrModeledMixin):
     cfMetaVersion = ''
     cfURIs = PersistentList()
     cfServices = PersistentList()
+    cfStagingModel = ''
+    cfStagingStack = ''
 
     # We do more frequent collection of these values, but it's good to have an
     # immediate value to use as soon as the device is added.
@@ -35,6 +37,8 @@ class App(DeviceComponent, ManagedEntity, CollectedOrModeledMixin):
         {'id': 'cfMetaVersion', 'type': 'string', 'mode': ''},
         {'id': 'cfURIs', 'type': 'lines', 'mode': ''},
         {'id': 'cfServices', 'type': 'lines', 'mode': ''},
+        {'id': 'cfStagingModel', 'type': 'string', 'mode': ''},
+        {'id': 'cfStagingStack', 'type': 'string', 'mode': ''},
         {'id': 'modeled_instances', 'type':'int', 'mode': ''},
         {'id': 'modeled_runningInstances', 'type':'int', 'mode': ''},
         {'id': 'modeled_resourcesDisk', 'type':'int', 'mode': ''},
@@ -79,6 +83,15 @@ class App(DeviceComponent, ManagedEntity, CollectedOrModeledMixin):
 
     def setCFServices(self, services):
         self.cfServices = PersistentList(services)
+
+    @property
+    def cfFramework(self):
+        return self.cfEndpoint().cfFrameworks._getOb(self.cfStagingModel, None)
+
+    @property
+    def cfRuntime(self):
+        framework = self.cfFramework
+        return framework.cfRuntimes._getOb(self.cfStagingStack, None)
 
 InitializeClass(App)
 

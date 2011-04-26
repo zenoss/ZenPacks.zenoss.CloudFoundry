@@ -75,7 +75,30 @@ class Target(object):
 
 if __name__ == '__main__':
     import sys
+    import pprint
+
     target = Target(*sys.argv[1:])
-    import pdb; pdb.set_trace()
-    print "Done."
+    print "### Info ###"
+    pprint.pprint(target.info)
+    print
+
+    print "### Apps ###"
+    apps = target.apps
+    pprint.pprint(apps)
+    print
+
+    print "### System Services ###"
+    pprint.pprint(target.systemServices)
+    print
+
+    print "### Provisioned Services ###"
+    pprint.pprint(target.provisionedServices)
+    print
+
+    print "### App ({0}) Instances ###".format(apps[0]['name'])
+    pprint.pprint(target.getAppInstances(apps[0]['name']))
+    print
+
+    print "### App ({0}) Stats ###".format(apps[0]['name'])
+    pprint.pprint(target.getAppStats(apps[0]['name']))
 

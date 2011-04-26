@@ -34,25 +34,25 @@ Ext.onReady(function() {
         box.addField({
             xtype: 'displayfield',
             name: 'utilAppURIs',
-            fieldLabel: _t('App URIs (Usage / Limit)')
+            fieldLabel: _t('App URIs')
         });
 
         box.addField({
             xtype: 'displayfield',
             name: 'utilApps',
-            fieldLabel: _t('Apps (Usage / Limit)')
+            fieldLabel: _t('Apps')
         });
 
         box.addField({
             xtype: 'displayfield',
             name: 'utilMemory',
-            fieldLabel: _t('Memory (Usage / Limit)')
+            fieldLabel: _t('Memory')
         });
 
         box.addField({
             xtype: 'displayfield',
             name: 'utilServices',
-            fieldLabel: _t('Services (Usage / Limit)')
+            fieldLabel: _t('Services')
         });
     });
 
@@ -201,8 +201,11 @@ ZC.CloudFoundryAppPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 {name: 'name'},
                 {name: 'severity'},
                 {name: 'entity'},
-                {name: 'cfVersion'},
+                {name: 'cfFramework'},
+                {name: 'cfRuntime'},
+                {name: 'cfAppServer'},
                 {name: 'cfState'},
+                {name: 'instances'},
                 {name: 'resourcesMemory'},
                 {name: 'resourcesDisk'},
                 {name: 'monitor'},
@@ -222,11 +225,17 @@ ZC.CloudFoundryAppPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 renderer: Zenoss.render.entityLinkFromGrid,
                 panel: this
             },{
-                id: 'cfVersion',
-                dataIndex: 'cfVersion',
-                header: _t('Version'),
-                sortable: true,
-                width: 265
+                id: 'cfFramework',
+                dataIndex: 'cfFramework',
+                header: _t('Framework'),
+                renderer: Zenoss.render.entityLinkFromGrid,
+                width: 70
+            },{
+                id: 'cfRuntime',
+                dataIndex: 'cfRuntime',
+                header: _t('Runtime'),
+                renderer: Zenoss.render.entityLinkFromGrid,
+                width: 70
             },{
                 id: 'cfState',
                 dataIndex: 'cfState',
@@ -244,6 +253,11 @@ ZC.CloudFoundryAppPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 dataIndex: 'resourcesDisk',
                 header: _t('Disk'),
                 sortable: true,
+                width: 60
+            },{
+                id: 'instances',
+                dataIndex: 'instances',
+                header: _t('Instances'),
                 width: 60
             },{
                 id: 'monitored',
@@ -274,8 +288,10 @@ ZC.CloudFoundryAppInstancePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, 
                 {name: 'severity'},
                 {name: 'cfApp'},
                 {name: 'entity'},
+                {name: 'cfHost'},
+                {name: 'cfPort'},
+                {name: 'cfCores'},
                 {name: 'cfState'},
-                {name: 'cfSince'},
                 {name: 'monitor'},
                 {name: 'monitored'}
             ],
@@ -296,17 +312,32 @@ ZC.CloudFoundryAppInstancePanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, 
                 dataIndex: 'entity',
                 header: _t('Index'),
                 renderer: Zenoss.render.entityLinkFromGrid,
-                panel: this
+                panel: this,
+                width: 45
+            },{
+                id: 'cfHost',
+                dataIndex: 'cfHost',
+                header: _t('Host'),
+                sortable: true,
+                width: 75
+            },{
+                id: 'cfPort',
+                dataIndex: 'cfPort',
+                header: _t('Port'),
+                sortable: true,
+                width: 50
+            },{
+                id: 'cfCores',
+                dataIndex: 'cfCores',
+                header: _t('Cores'),
+                sortable: true,
+                width: 45
             },{
                 id: 'cfState',
                 dataIndex: 'cfState',
                 header: _t('State'),
-                sortable: true
-            },{
-                id: 'cfSince',
-                dataIndex: 'cfSince',
-                header: _t('Since'),
-                sortable: true
+                sortable: true,
+                width: 80
             },{
                 id: 'monitored',
                 dataIndex: 'monitored',
@@ -368,7 +399,7 @@ ZC.CloudFoundryFrameworkPanel = Ext.extend(ZC.CloudFoundryComponentGridPanel, {
                 width: 70
             },{
                 id: 'cfAppServers',
-                dataIndex: 'csfAppServerCount',
+                dataIndex: 'cfAppServerCount',
                 header: _t('# App Servers'),
                 sortable: true,
                 width: 80

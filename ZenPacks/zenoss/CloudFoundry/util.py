@@ -7,11 +7,19 @@ class CollectedOrModeledMixin:
         if r is None:
             r = getattr(self, 'modeled_{0}'.format(value), None)
 
-        return float(r) if r is not None else None
+        try:
+            return float(r) if r is not None else None
+        except TypeError, ex:
+            import pdb; pdb.set_trace()
+            raise ex
 
     def getIntForValue(self, value):
         r = self.getFloatForValue(value)
-        return int(r) if r is not None else None
+        try:
+            return int(r) if r is not None else None
+        except TypeError, ex:
+            import pdb; pdb.set_trace()
+            raise ex
         
     def getStringForValue(self, value, format='{0}'):
         r = self.getFloatForValue(value)

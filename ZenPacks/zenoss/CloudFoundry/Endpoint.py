@@ -22,6 +22,7 @@ class Endpoint(Device, CollectedOrModeledMixin):
     modeled_limitApps = None
     modeled_limitMemory = None
     modeled_limitServices = None
+    modeled_usageAppURIs = None
     modeled_usageApps = None
     modeled_usageMemory = None
     modeled_usageServices = None
@@ -37,6 +38,7 @@ class Endpoint(Device, CollectedOrModeledMixin):
         {'id': 'modeled_limitApps', 'type': 'int', 'mode': ''},
         {'id': 'modeled_limitMemory', 'type': 'int', 'mode': ''},
         {'id': 'modeled_limitServices', 'type': 'int', 'mode': ''},
+        {'id': 'modeled_usageAppURIs', 'type': 'int', 'mode': ''},
         {'id': 'modeled_usageApps', 'type': 'int', 'mode': ''},
         {'id': 'modeled_usageMemory', 'type': 'int', 'mode': ''},
         {'id': 'modeled_usageServices', 'type': 'int', 'mode': ''},

@@ -1,6 +1,7 @@
 from zope.component import adapts
 from zope.interface import implements
 
+from Products.ZenUtils.Utils import convToUnits
 from Products.Zuul.decorators import info
 from Products.Zuul.infos import ProxyProperty
 from Products.Zuul.infos.component import ComponentInfo
@@ -36,25 +37,35 @@ class EndpointInfo(DeviceInfo):
     limitApps = CollectedOrModeledProperty('limitApps')
     limitMemory = CollectedOrModeledProperty('limitMemory')
     limitServices = CollectedOrModeledProperty('limitServices')
+    usageAppURIs = CollectedOrModeledProperty('usageAppURIs')
     usageApps = CollectedOrModeledProperty('usageApps')
     usageMemory = CollectedOrModeledProperty('usageMemory')
     usageServices = CollectedOrModeledProperty('usageServices')
 
     @property
     def utilAppURIs(self):
-        return "{0} / {1}".format('?', self.limitAppURIs)
+        return "{0} of {1} ({2:.0%})".format(
+            self.usageAppURIs, self.limitAppURIs,
+            float(self.usageAppURIs) / self.limitAppURIs)
 
     @property
     def utilApps(self):
-        return "{0} / {1}".format(self.usageApps, self.limitApps)
+        return "{0} of {1} ({2:.0%})".format(
+            self.usageApps, self.limitApps,
+            float(self.usageApps) / self.limitApps)
 
     @property
     def utilMemory(self):
-        return "{0} / {1}".format(self.usageMemory, self.limitMemory)
+        return "{0} of {1} ({2:.0%})".format(
+            convToUnits(self.usageMemory, 1024, 'B'),
+            convToUnits(self.limitMemory, 1024, 'B'),
+            float(self.usageMemory) / self.limitMemory)
 
     @property
     def utilServices(self):
-        return "{0} / {1}".format(self.usageServices, self.limitServices)
+        return "{0} of {1} ({2:.0%})".format(
+            self.usageServices, self.limitServices,
+            float(self.usageServices), self.limitServices)
 
 class CloudFoundryComponentInfo(ComponentInfo):
     @property
@@ -75,12 +86,35 @@ class AppInfo(CloudFoundryComponentInfo):
     cfMetaVersion = ProxyProperty('cfMetaVersion')
     cfURIs = ProxyProperty('cfURIs')
     cfServices = ProxyProperty('cfServices')
-
-    instances = CollectedOrModeledProperty('instances')
-    runningInstances = CollectedOrModeledProperty('runningInstances')
-    resourcesMemory = CollectedOrModeledProperty('resourcesMemory')
-    resourcesDisk = CollectedOrModeledProperty('resourcesDisk')
+    cfStagingModel = ProxyProperty('cfStagingModel')
+    cfStagingStack = ProxyProperty('cfStagingStack')
     resourcesFDS = CollectedOrModeledProperty('resourcesFDS')
+
+    @property
+    def resourcesMemory(self):
+        return convToUnits(
+            self._object.getIntForValue('resourcesMemory'), 1024, 'B')
+
+    @property
+    def resourcesDisk(self):
+        return convToUnits(
+            self._object.getIntForValue('resourcesDisk'), 1024, 'B')
+
+    @property
+    def instances(self):
+        return "{0} of {1}".format(
+            self._object.getIntForValue('runningInstances'),
+            self._object.getIntForValue('instances'))
+
+    @property
+    @info
+    def cfFramework(self):
+        return self._object.cfFramework
+
+    @property
+    @info
+    def cfRuntime(self):
+        return self._object.cfRuntime
 
 class AppInstanceInfo(CloudFoundryComponentInfo):
     implements(IAppInstanceInfo)
@@ -89,11 +123,26 @@ class AppInstanceInfo(CloudFoundryComponentInfo):
     cfIndex = ProxyProperty("cfIndex")
     cfState = ProxyProperty("cfState")
     cfSince = ProxyProperty("cfSince")
+    cfCores = ProxyProperty("cfCores")
+    cfHost = ProxyProperty("cfHost")
+    cfPort = ProxyProperty("cfPort")
+    memoryQuota = CollectedOrModeledProperty('memoryQuota')
+    diskQuota = CollectedOrModeledProperty('diskQuota')
+    fdsQuota = CollectedOrModeledProperty('fdsQuota')
+    uptime = CollectedOrModeledProperty('uptime')
+    usageCPU = CollectedOrModeledProperty('usageCPU')
+    usageMemory = CollectedOrModeledProperty('usageMemory')
+    usageDisk = CollectedOrModeledProperty('usageDisk')
 
     @property
     @info
     def cfApp(self):
         return self._object.cfApp()
+
+    @property
+    def usageMemory(self):
+        return convToUnits(
+            self._object.getIntForValue('usageMemory'), 1024, 'B')
 
 class FrameworkInfo(CloudFoundryComponentInfo):
     implements(IFrameworkInfo)
