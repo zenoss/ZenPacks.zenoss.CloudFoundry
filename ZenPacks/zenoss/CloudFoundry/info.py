@@ -88,7 +88,6 @@ class AppInfo(CloudFoundryComponentInfo):
     cfServices = ProxyProperty('cfServices')
     cfStagingModel = ProxyProperty('cfStagingModel')
     cfStagingStack = ProxyProperty('cfStagingStack')
-    resourcesFDS = CollectedOrModeledProperty('resourcesFDS')
 
     @property
     def resourcesMemory(self):

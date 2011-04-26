@@ -25,9 +25,8 @@ class App(DeviceComponent, ManagedEntity, CollectedOrModeledMixin):
     # immediate value to use as soon as the device is added.
     modeled_instances = None
     modeled_runningInstances = None
-    modeled_resourcesDisk = None
-    modeled_resourcesFDS = None
     modeled_resourcesMemory = None
+    modeled_resourcesDisk = None
 
     _properties = ManagedEntity._properties + (
         {'id': 'cfName', 'type': 'string', 'mode': ''},
@@ -41,9 +40,8 @@ class App(DeviceComponent, ManagedEntity, CollectedOrModeledMixin):
         {'id': 'cfStagingStack', 'type': 'string', 'mode': ''},
         {'id': 'modeled_instances', 'type':'int', 'mode': ''},
         {'id': 'modeled_runningInstances', 'type':'int', 'mode': ''},
-        {'id': 'modeled_resourcesDisk', 'type':'int', 'mode': ''},
-        {'id': 'modeled_resourcesFDS', 'type':'int', 'mode': ''},
         {'id': 'modeled_resourcesMemory', 'type':'int', 'mode': ''},
+        {'id': 'modeled_resourcesDisk', 'type':'int', 'mode': ''},
     )
 
     _relations = ManagedEntity._relations + (

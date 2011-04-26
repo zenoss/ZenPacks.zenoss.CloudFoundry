@@ -43,7 +43,6 @@ class IAppInfo(IComponentInfo):
     instances = schema.Text(title=_t("Instances"))
     resourcesMemory = schema.Int(title=_t("Resources: Memory"))
     resourcesDisk = schema.Int(title=_t("Resources: Disk"))
-    resourcesFDS = schema.Int(title=_t("Resources: File Descriptors"))
     cfFramework = schema.Entity(title=_t("Framework"))
     cfRuntime = schema.Entity(title=_t("Runtime"))
 
