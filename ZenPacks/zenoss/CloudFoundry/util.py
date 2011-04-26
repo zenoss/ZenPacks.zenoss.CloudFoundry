@@ -11,7 +11,7 @@ class CollectedOrModeledMixin:
 
     def getIntForValue(self, value):
         r = self.getFloatForValue(value)
-        return int(r) if r is not None else None
+        return int(round(r)) if r is not None else None
         
     def getStringForValue(self, value, format='{0}'):
         r = self.getFloatForValue(value)
