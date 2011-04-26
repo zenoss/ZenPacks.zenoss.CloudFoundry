@@ -9,12 +9,10 @@ class AppServer(DeviceComponent, ManagedEntity):
 
     cfName = ''
     cfDescription = ''
-    cfVersion = ''
 
     _properties = ManagedEntity._properties + (
         {'id': 'cfName', 'type': 'string', 'mode': ''},
         {'id': 'cfDescription', 'type': 'string', 'mode': ''},
-        {'id': 'cfVersion', 'type': 'string', 'mode': ''},
     )
 
     _relations = ManagedEntity._relations + (

@@ -51,35 +51,31 @@ class IAppInstanceInfo(IComponentInfo):
     cfApp = schema.Entity(title=_t(u"App"))
     cfIndex = schema.Int(title=_t(u"Index"))
     cfState = schema.Text(title=_t(u"State"))
-    cfSince = schema.Int(title=_t(u"Since"))
-    cfCores = schema.Int(title=_t(u"CPU Cores"))
+    utilCPU = schema.Text(title=_t(u"CPU Utilization"))
+    utilMemory = schema.Text(title=_t(u"Memory Utilization"))
+    utilDisk = schema.Text(title=_t(u"Disk Utilization"))
     cfHost = schema.Text(title=_t(u"Host"))
     cfPort = schema.Int(title=_t(u"Port"))
-    memoryQuota = schema.Int(title=_t(u"Memory Quota"))
-    diskQuota = schema.Int(title=_t(u"Disk Quota"))
-    fdsQuota = schema.Int(title=_t(u"File Descriptor Quota"))
-    uptime = schema.Text(title=_t(u"Uptime"))
-    usageCPU = schema.Text(title=_t(u"CPU Usage"))
-    usageMemory = schema.Text(title=_t(u"Memory Usage"))
-    usageDisk = schema.Text(title=_t(u"Disk Usage"))
+    cfSince = schema.Int(title=_t(u"Since"))
 
 class IFrameworkInfo(IComponentInfo):
     cfName = schema.Text(title=_t(u"Name"))
     cfDetection = schema.List(title=_t(u"Detection"))
     cfRuntimeCount = schema.Int(title=_t(u"# Runtimes"))
     cfAppServerCount = schema.Int(title=_t(u"# App Servers"))
+    cfAppCount = schema.Int(title=_t(u"# Apps"))
 
 class IRuntimeInfo(IComponentInfo):
     cfFramework = schema.Entity(title=_t(u"Framework"))
     cfName = schema.Text(title=_t(u"Name"))
     cfDescription = schema.Text(title=_t(u"Description"))
     cfVersion = schema.Text(title=_t(u"Version"))
+    cfAppCount = schema.Text(title=_t(u"# Apps"))
 
 class IAppServerInfo(IComponentInfo):
     cfFramework = schema.Entity(title=_t(u"Framework"))
     cfName = schema.Text(title=_t(u"Name"))
     cfDescription = schema.Text(title=_t(u"Description"))
-    cfVersion = schema.Text(title=_t(u"Version"))
 
 class ISystemServiceInfo(IComponentInfo):
     cfId = schema.Int(title=_t(u"ID"))

@@ -126,13 +126,6 @@ class AppInstanceInfo(CloudFoundryComponentInfo):
     cfCores = ProxyProperty("cfCores")
     cfHost = ProxyProperty("cfHost")
     cfPort = ProxyProperty("cfPort")
-    memoryQuota = CollectedOrModeledProperty('memoryQuota')
-    diskQuota = CollectedOrModeledProperty('diskQuota')
-    fdsQuota = CollectedOrModeledProperty('fdsQuota')
-    uptime = CollectedOrModeledProperty('uptime')
-    usageCPU = CollectedOrModeledProperty('usageCPU')
-    usageMemory = CollectedOrModeledProperty('usageMemory')
-    usageDisk = CollectedOrModeledProperty('usageDisk')
 
     @property
     @info
@@ -140,9 +133,32 @@ class AppInstanceInfo(CloudFoundryComponentInfo):
         return self._object.cfApp()
 
     @property
-    def usageMemory(self):
+    def usageDisk(self):
         return convToUnits(
-            self._object.getIntForValue('usageMemory'), 1024, 'B')
+            self._object.getIntForValue('usageDisk'), 1024, 'B')
+
+    @property
+    def utilCPU(self):
+        return "{0:.0f}% of {1}".format(
+            self._object.getFloatForValue('usageCPU'), self.cfCores)
+
+    @property
+    def utilMemory(self):
+        usage = self._object.getIntForValue('usageMemory')
+        quota = self._object.getIntForValue('quotaMemory')
+        return "{0} of {1} ({2:.0%})".format(
+            convToUnits(usage, 1024, 'B'),
+            convToUnits(quota, 1024, 'B'),
+            float(usage) / quota)
+
+    @property
+    def utilDisk(self):
+        usage = self._object.getIntForValue('usageDisk')
+        quota = self._object.getIntForValue('quotaDisk')
+        return "{0} of {1} ({2:.0%})".format(
+            convToUnits(usage, 1024, 'B'),
+            convToUnits(quota, 1024, 'B'),
+            float(usage) / quota)
 
 class FrameworkInfo(CloudFoundryComponentInfo):
     implements(IFrameworkInfo)
@@ -173,6 +189,15 @@ class FrameworkInfo(CloudFoundryComponentInfo):
     def cfAppServerCount(self):
         return len(self._object.cfAppServers.objectIds())
 
+    @property
+    def cfAppCount(self):
+        count = 0
+        for app in self._object.cfEndpoint().cfApps():
+            if app.cfStagingModel == self._object.cfName:
+                count += 1
+
+        return count
+
 class RuntimeInfo(CloudFoundryComponentInfo):
     implements(IRuntimeInfo)
     adapts(Runtime)
@@ -186,13 +211,22 @@ class RuntimeInfo(CloudFoundryComponentInfo):
     def cfFramework(self):
         return self._object.cfFramework()
 
+    @property
+    def cfAppCount(self):
+        count = 0
+        for app in self._object.cfFramework().cfEndpoint().cfApps():
+            if app.cfStagingStack == self._object.cfName \
+                and app.cfStagingModel == self._object.cfFramework().cfName:
+                count += 1
+
+        return count
+
 class AppServerInfo(CloudFoundryComponentInfo):
     implements(IAppServerInfo)
     adapts(AppServer)
 
     cfName = ProxyProperty("cfName")
     cfDescription = ProxyProperty("cfDescription")
-    cfVersion = ProxyProperty("cfVersion")
 
     @property
     @info

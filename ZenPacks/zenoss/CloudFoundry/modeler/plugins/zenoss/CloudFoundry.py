@@ -125,16 +125,14 @@ class CloudFoundry(PythonPlugin):
                 cfIndex=data['index'],
                 cfState=data['state'],
                 cfSince=data['since'],
-                cfCores=stats['cores'],
                 cfHost=stats['host'],
                 cfPort=stats['port'],
-                modeled_memoryQuota=stats['mem_quota'],
-                modeled_diskQuota=stats['disk_quota'],
-                modeled_fdsQuota=stats['fds_quota'],
-                modeled_uptime=stats['uptime'],
+                cfCores=stats['cores'],
+                modeled_quotaMemory=stats['mem_quota'],
+                modeled_quotaDisk=stats['disk_quota'],
                 modeled_usageCPU=stats['usage']['cpu'],
-                modeled_usageMemory=stats['usage']['mem'],
-                modeled_usageDisk=stats['usage']['disk'],
+                modeled_usageMemory=stats['usage']['mem'] * 1024,
+                modeled_usageDisk=stats['usage']['disk'] * 1024,
             )))
 
         return [RelationshipMap(
@@ -194,7 +192,6 @@ class CloudFoundry(PythonPlugin):
                 title=data['name'],
                 cfName=data['name'],
                 cfDescription=data['description'],
-                cfVersion=data.get('version', ''),
             )))
 
         return [RelationshipMap(
