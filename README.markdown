@@ -103,10 +103,9 @@ The following default thresholds are configured:
     * Less than 1 running instance per App
 
 ## References
-[1]: http://localhost/ "Monitoring Cloud Foundry"
-[2]: http://www.zenoss.com/ "Zenoss"
-[3]: https://github.com/downloads/zenoss/ZenPacks.zenoss.CloudFoundry/ZenPacks.zenoss.CloudFoundry-1.0.0-py2.6.egg "latest CloudFoundry ZenPack"
-[4]: https://github.com/zenoss/ZenPacks.zenoss.CloudFoundry "git repository"
-[5]: http://www.vmware.com/ "VMware"
-[6]: http://cloudfoundry.com/ "Cloud Foundry"
-[7]: https://github.com/cloudfoundry/vcap "vcap project"
+[Monitoring Cloud Foundry]: <http://localhost/>
+[Zenoss]: <http://www.zenoss.com/>
+[latest CloudFoundry ZenPack]: <https://github.com/downloads/zenoss/ZenPacks.zenoss.CloudFoundry/ZenPacks.zenoss.CloudFoundry-1.0.0-py2.6.egg>
+[git repository]: <https://github.com/zenoss/ZenPacks.zenoss.CloudFoundry>
+[VMware]: <http://www.vmware.com/>
+[Cloud Foundry]: <http://cloudfoundry.com/>
