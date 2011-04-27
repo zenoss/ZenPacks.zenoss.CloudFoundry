@@ -3,13 +3,13 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.zenoss.CloudFoundry"
-VERSION = "0.9.0"
+VERSION = "1.0.0"
 AUTHOR = "Zenoss"
 LICENSE = ""
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.zenoss']
 PACKAGES = ['ZenPacks', 'ZenPacks.zenoss', 'ZenPacks.zenoss.CloudFoundry']
 INSTALL_REQUIRES = []
-COMPAT_ZENOSS_VERS = ">=3.0.3"
+COMPAT_ZENOSS_VERS = ">=3.1.0"
 PREV_ZENPACK_NAME = ""
 # STOP_REPLACEMENTS
 ################################
