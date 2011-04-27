@@ -33,74 +33,74 @@ Choose that option and you'll be presented with a dialog asking for the followin
 Once you click Add Zenoss will contact the target and get all of the operationally interesting information that exists. Once it is complete you'll find a new device in the /CloudFoundy device class with the same name as the target you entered into the dialog. Click into this new device to see everything that was discovered.
 
 The following elements are discovered:
-    * Frameworks
-        * Runtimes
-        * App Servers
-    * System Services
-    * Provisioned Services
-    * Apps
-        * App Instances
+ * Frameworks
+  * Runtimes
+  * App Servers
+ * System Services
+ * Provisioned Services
+ * Apps
+  * App Instances
 
 The following performance metrics are collected:
-    * Per-Endpoint (target)
-        * Limits
-            * App URIs
-            * Apps
-            * Memory
-            * Services
-        * Usage
-            * App URIs
-            * Apps
-            * App Instances
-            * Running App Instances
-            * Memory
-            * Services
-        * Utilization
-            * App URIs
-            * Apps
-            * Memory
-            * Services
-    * Per-App
-        * Resources
-            * Memory
-            * Disk
-        * Usage
-            * CPU (average across instances)
-            * Memory
-            * Disk
-        * Utilization
-            * Memory
-            * Disk
-        * Instances
-            * Total
-            * Running
-        * Services
-        * URIs
-    * Per-App Instance
-        * Quota
-            * Memory
-            * Disk
-        * Usage
-            * CPU
-            * Memory
-            * Disk
-        * Util
-            * Memory
-            * Disk
+ * Per-Endpoint (target)
+  * Limits
+   * App URIs
+   * Apps
+   * Memory
+   * Services
+  * Usage
+   * App URIs
+   * Apps
+   * App Instances
+   * Running App Instances
+   * Memory
+   * Services
+  * Utilization
+   * App URIs
+   * Apps
+   * Memory
+   * Services
+ * Per-App
+  * Resources
+   * Memory
+   * Disk
+  * Usage
+   * CPU (average across instances)
+   * Memory
+   * Disk
+  * Utilization
+   * Memory
+   * Disk
+  * Instances
+   * Total
+   * Running
+  * Services
+  * URIs
+ * Per-App Instance
+  * Quota
+   * Memory
+   * Disk
+  * Usage
+   * CPU
+   * Memory
+   * Disk
+  * Utilization
+   * Memory
+   * Disk
 
 The following default thresholds are configured:
-    * Over 99% utilization of..
-        * Endpoint App URIs
-        * Endpoint Apps
-        * Endpoint Memory
-        * Endpoint Services
-        * App CPU (average across instances)
-        * App Memory
-        * App Disk
-        * App Instance CPU
-        * App Instance Memory
-        * App Instance Disk
-    * Less than 1 running instance per App
+ * Over 99% utilization of..
+  * Endpoint App URIs
+  * Endpoint Apps
+  * Endpoint Memory
+  * Endpoint Services
+  * App CPU (average across instances)
+  * App Memory
+  * App Disk
+  * App Instance CPU
+  * App Instance Memory
+  * App Instance Disk
+ * Less than 1 running instance per App
 
 ## References
 [Monitoring Cloud Foundry]: <http://localhost/>
