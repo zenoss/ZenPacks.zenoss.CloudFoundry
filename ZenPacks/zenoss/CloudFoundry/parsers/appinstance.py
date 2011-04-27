@@ -41,6 +41,10 @@ class appinstance(CommandParser):
                 result.values.append((point, quotaDisk))
             elif point.id == 'usageCPU':
                 result.values.append((point, stats['usage']['cpu']))
+            elif point.id == 'usageMemory':
+                result.values.append((point, usageMemory))
+            elif point.id == 'usageDisk':
+                result.values.append((point, usageDisk))
             elif point.id == 'utilMemory':
                 utilMemory = (float(usageMemory) / quotaMemory) * 100.0
                 result.values.append((point, utilMemory))
