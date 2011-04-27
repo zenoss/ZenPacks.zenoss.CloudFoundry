@@ -467,7 +467,7 @@ True
 5
 </property>
 <tomanycont id='graphPoints'>
-<object id='services' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='Services' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
 </property>
