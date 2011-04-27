@@ -12,7 +12,7 @@ You must first have, or install, Zenoss 3.1.0 or later. Core and Enterprise vers
 ### Normal Installation (packaged egg)
 Download the [latest CloudFoundry ZenPack][]. Copy this file to your Zenoss server and run the following commands as the zenoss user.
 
-    zenpack --install ZenPacks.zenoss.CloudFoundry-1.0.0-py2.6.egg
+    zenpack --install ZenPacks.zenoss.CloudFoundry-1.0.1-py2.6.egg
     zenoss restart
 
 ### Developer Installation (link mode)
@@ -107,7 +107,7 @@ The following default thresholds are configured:
 
 [Monitoring Cloud Foundry]: <http://localhost/>
 [Zenoss]: <http://www.zenoss.com/>
-[latest CloudFoundry ZenPack]: <https://github.com/downloads/zenoss/ZenPacks.zenoss.CloudFoundry/ZenPacks.zenoss.CloudFoundry-1.0.0-py2.6.egg>
+[latest CloudFoundry ZenPack]: <https://github.com/downloads/zenoss/ZenPacks.zenoss.CloudFoundry/ZenPacks.zenoss.CloudFoundry-1.0.1-py2.6.egg>
 [git repository]: <https://github.com/zenoss/ZenPacks.zenoss.CloudFoundry>
 [VMware]: <http://www.vmware.com/>
 [Cloud Foundry]: <http://cloudfoundry.com/>
