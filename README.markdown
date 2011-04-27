@@ -105,7 +105,7 @@ The following default thresholds are configured:
  * Less than 1 running instance per App
 
 
-[Monitoring Cloud Foundry]: <http://localhost/>
+[Monitoring Cloud Foundry]: <http://www.youtube.com/watch?v=uDUUVTWXCPE>
 [Zenoss]: <http://www.zenoss.com/>
 [latest CloudFoundry ZenPack]: <https://github.com/downloads/zenoss/ZenPacks.zenoss.CloudFoundry/ZenPacks.zenoss.CloudFoundry-1.0.1-py2.6.egg>
 [git repository]: <https://github.com/zenoss/ZenPacks.zenoss.CloudFoundry>
