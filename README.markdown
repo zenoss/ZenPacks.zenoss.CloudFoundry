@@ -42,6 +42,7 @@ The following elements are discovered:
   * App Instances
 
 The following performance metrics are collected:
+
  * Per-Endpoint (target)
   * Limits
    * App URIs
@@ -89,6 +90,7 @@ The following performance metrics are collected:
    * Disk
 
 The following default thresholds are configured:
+
  * Over 99% utilization of..
   * Endpoint App URIs
   * Endpoint Apps
