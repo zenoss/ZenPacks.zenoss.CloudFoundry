@@ -26,13 +26,15 @@ If you wish to further develop and possibly contribute back to the CloudFoundry 
 One the CloudFoundry ZenPack is installed you can add endpoints by going to the infrastructure screen and clicking the normal button for adding devices. You will find a new option labeled, "Add CloudFoundry Endpoint."
 
 Choose that option and you'll be presented with a dialog asking for the following inputs.
-    1. Target - An example would be api.cloudfoundry.com or api.vcap.me.
-    2. Email - The email address you used to register.
-    3. Password
+
+ 1. Target - An example would be api.cloudfoundry.com or api.vcap.me.
+ 2. Email - The email address you used to register.
+ 3. Password
 
 Once you click Add Zenoss will contact the target and get all of the operationally interesting information that exists. Once it is complete you'll find a new device in the /CloudFoundy device class with the same name as the target you entered into the dialog. Click into this new device to see everything that was discovered.
 
 The following elements are discovered:
+
  * Frameworks
   * Runtimes
   * App Servers
