@@ -178,6 +178,26 @@ True
 0
 </property>
 </object>
+<object id='no running instances' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property label="DataPoints" type="lines" id="dsnames" mode="w" >
+['app_runningInstances']
+</property>
+<property label="Enabled" type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="minval" mode="w" >
+1
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Perf/Snmp
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="escalateCount" mode="w" >
+0
+</property>
+</object>
 </tomanycont>
 <tomanycont id='graphDefs'>
 <object id='Disk' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
@@ -296,6 +316,9 @@ True
 </property>
 <tomanycont id='graphPoints'>
 <object id='Instances' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
 </property>
@@ -323,7 +346,7 @@ AVERAGE
 </object>
 <object id='Running' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-1
+2
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 AREA
@@ -348,6 +371,14 @@ app_runningInstances
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
+</property>
+</object>
+<object id='no running instances' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<property type="string" id="threshId" mode="w" >
+no running instances
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
 </property>
 </object>
 </tomanycont>
@@ -579,6 +610,9 @@ True
 </property>
 <tomanycont id='graphPoints'>
 <object id='CPU (average)' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
 </property>
@@ -606,7 +640,7 @@ AVERAGE
 </object>
 <object id='Disk' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-2
+3
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
@@ -635,7 +669,7 @@ AVERAGE
 </object>
 <object id='Memory' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-1
+2
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
@@ -660,6 +694,14 @@ app_utilMemory
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
+</property>
+</object>
+<object id='exhaustion' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<property type="string" id="threshId" mode="w" >
+exhaustion
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
 </property>
 </object>
 </tomanycont>
@@ -981,6 +1023,9 @@ True
 </property>
 <tomanycont id='graphPoints'>
 <object id='CPU' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
 </property>
@@ -1008,7 +1053,7 @@ AVERAGE
 </object>
 <object id='Disk' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-2
+3
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
@@ -1037,7 +1082,7 @@ AVERAGE
 </object>
 <object id='Memory' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-1
+2
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
@@ -1062,6 +1107,14 @@ appinstance_utilMemory
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
+</property>
+</object>
+<object id='exhaustion' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<property type="string" id="threshId" mode="w" >
+exhaustion
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
 </property>
 </object>
 </tomanycont>
