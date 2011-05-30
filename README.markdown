@@ -18,7 +18,7 @@ Download the [latest CloudFoundry ZenPack][]. Copy this file to your Zenoss serv
 ### Developer Installation (link mode)
 If you wish to further develop and possibly contribute back to the CloudFoundry ZenPack you should clone the [git repository][], then install the ZenPack in developer mode using the following commands.
 
-    git clone TODO
+    git clone git://github.com/zenoss/ZenPacks.zenoss.CloudFoundry.git
     zenpack --link --install ZenPacks.zenoss.CloudFoundry
     zenoss restart
 
