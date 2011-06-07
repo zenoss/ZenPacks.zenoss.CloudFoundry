@@ -19,8 +19,10 @@ class ZenPack(ZenPackBase):
         self.symlinkPlugin()
 
     def remove(self, app, leaveObjects=False):
-        self.removePluginSymlink()
-        super(ZenPack, self).remove(app, leaveObjects=False)
+        if not leaveObjects:
+            self.removePluginSymlink()
+
+        super(ZenPack, self).remove(app, leaveObjects=leaveObjects)
 
     def symlinkPlugin(self):
         os.system('ln -sf {0}/poll_vcap {1}/poll_vcap'.format(
