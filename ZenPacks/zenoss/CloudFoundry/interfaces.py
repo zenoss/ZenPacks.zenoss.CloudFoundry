@@ -4,11 +4,13 @@ from Products.Zuul.interfaces.component import IComponentInfo
 from Products.Zuul.interfaces.device import IDeviceInfo
 from Products.Zuul.utils import ZuulMessageFactory as _t
 
+
 class ICloudFoundryFacade(IFacade):
     def addEndpoint(self, target, email, password, collector):
         """
         Add CloudFoundry Endpoint.
         """
+
 
 class IEndpointInfo(IDeviceInfo):
     cfName = schema.Text(title=_t(u"Name"))
@@ -30,6 +32,7 @@ class IEndpointInfo(IDeviceInfo):
     utilMemory = schema.Text(title=_t(u"Memory (Usage / Limit)"))
     utilServices = schema.Text(title=_t(u"Services (Usage / Limit)"))
 
+
 class IAppInfo(IComponentInfo):
     cfName = schema.Text(title=_t(u"Name"))
     cfVersion = schema.Text(title=_t(u"Version"))
@@ -46,6 +49,7 @@ class IAppInfo(IComponentInfo):
     cfFramework = schema.Entity(title=_t("Framework"))
     cfRuntime = schema.Entity(title=_t("Runtime"))
 
+
 class IAppInstanceInfo(IComponentInfo):
     cfApp = schema.Entity(title=_t(u"App"))
     cfIndex = schema.Int(title=_t(u"Index"))
@@ -57,12 +61,14 @@ class IAppInstanceInfo(IComponentInfo):
     cfPort = schema.Int(title=_t(u"Port"))
     cfSince = schema.Int(title=_t(u"Since"))
 
+
 class IFrameworkInfo(IComponentInfo):
     cfName = schema.Text(title=_t(u"Name"))
     cfDetection = schema.List(title=_t(u"Detection"))
     cfRuntimeCount = schema.Int(title=_t(u"# Runtimes"))
     cfAppServerCount = schema.Int(title=_t(u"# App Servers"))
     cfAppCount = schema.Int(title=_t(u"# Apps"))
+
 
 class IRuntimeInfo(IComponentInfo):
     cfFramework = schema.Entity(title=_t(u"Framework"))
@@ -71,10 +77,12 @@ class IRuntimeInfo(IComponentInfo):
     cfVersion = schema.Text(title=_t(u"Version"))
     cfAppCount = schema.Text(title=_t(u"# Apps"))
 
+
 class IAppServerInfo(IComponentInfo):
     cfFramework = schema.Entity(title=_t(u"Framework"))
     cfName = schema.Text(title=_t(u"Name"))
     cfDescription = schema.Text(title=_t(u"Description"))
+
 
 class ISystemServiceInfo(IComponentInfo):
     cfId = schema.Int(title=_t(u"ID"))
@@ -85,6 +93,7 @@ class ISystemServiceInfo(IComponentInfo):
     cfType = schema.Text(title=_t(u"Type"))
     cfTiers = schema.Text(title=_t(u"Tiers"))
     cfProvisionedCount = schema.Int(title=_t(u"# Provisioned"))
+
 
 class IProvisionedServiceInfo(IComponentInfo):
     cfSystemService = schema.Entity(title=_t(u"System Service"))
@@ -98,4 +107,3 @@ class IProvisionedServiceInfo(IComponentInfo):
     cfMetaVersion = schema.Int(title=_t(u"Version (Meta)"))
     cfMetaTags = schema.Text(title=_t(u"Tags"))
     cfProperties = schema.Text(title=_t(u"Properties"))
-

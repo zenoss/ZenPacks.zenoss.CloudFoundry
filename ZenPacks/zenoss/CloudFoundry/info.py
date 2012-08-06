@@ -23,6 +23,7 @@ from ZenPacks.zenoss.CloudFoundry.interfaces import (
 
 from ZenPacks.zenoss.CloudFoundry.util import CollectedOrModeledProperty
 
+
 class EndpointInfo(DeviceInfo):
     implements(IEndpointInfo)
     adapts(Endpoint)
@@ -67,15 +68,8 @@ class EndpointInfo(DeviceInfo):
             self.usageServices, self.limitServices,
             float(self.usageServices) / self.limitServices)
 
-class CloudFoundryComponentInfo(ComponentInfo):
-    @property
-    def entity(self):
-        return {
-            'uid': self._object.getPrimaryUrlPath(),
-            'name': self._object.titleOrId(),
-            }
 
-class AppInfo(CloudFoundryComponentInfo):
+class AppInfo(ComponentInfo):
     implements(IAppInfo)
     adapts(App)
 
@@ -115,7 +109,8 @@ class AppInfo(CloudFoundryComponentInfo):
     def cfRuntime(self):
         return self._object.cfRuntime
 
-class AppInstanceInfo(CloudFoundryComponentInfo):
+
+class AppInstanceInfo(ComponentInfo):
     implements(IAppInstanceInfo)
     adapts(AppInstance)
 
@@ -159,7 +154,8 @@ class AppInstanceInfo(CloudFoundryComponentInfo):
             convToUnits(quota, 1024, 'B'),
             float(usage) / quota)
 
-class FrameworkInfo(CloudFoundryComponentInfo):
+
+class FrameworkInfo(ComponentInfo):
     implements(IFrameworkInfo)
     adapts(Framework)
 
@@ -197,7 +193,8 @@ class FrameworkInfo(CloudFoundryComponentInfo):
 
         return count
 
-class RuntimeInfo(CloudFoundryComponentInfo):
+
+class RuntimeInfo(ComponentInfo):
     implements(IRuntimeInfo)
     adapts(Runtime)
 
@@ -220,7 +217,8 @@ class RuntimeInfo(CloudFoundryComponentInfo):
 
         return count
 
-class AppServerInfo(CloudFoundryComponentInfo):
+
+class AppServerInfo(ComponentInfo):
     implements(IAppServerInfo)
     adapts(AppServer)
 
@@ -232,7 +230,8 @@ class AppServerInfo(CloudFoundryComponentInfo):
     def cfFramework(self):
         return self._object.cfFramework()
 
-class SystemServiceInfo(CloudFoundryComponentInfo):
+
+class SystemServiceInfo(ComponentInfo):
     implements(ISystemServiceInfo)
     adapts(SystemService)
 
@@ -255,7 +254,8 @@ class SystemServiceInfo(CloudFoundryComponentInfo):
 
         return count
 
-class ProvisionedServiceInfo(CloudFoundryComponentInfo):
+
+class ProvisionedServiceInfo(ComponentInfo):
     implements(IProvisionedServiceInfo)
     adapts(ProvisionedService)
 
@@ -280,4 +280,3 @@ class ProvisionedServiceInfo(CloudFoundryComponentInfo):
                 return service
 
         return None
-
