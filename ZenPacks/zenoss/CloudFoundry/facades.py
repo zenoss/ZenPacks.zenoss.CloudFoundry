@@ -20,11 +20,6 @@ class CloudFoundryFacade(ZuulFacade):
         Handles adding a new CloudFoundry endpoint to the system.
         """
 
-        #########################
-        # TODO: Remove these overrides when DC functionality done
-        collector = 'localhost'
-        #########################
-
         # Verify that this device does not already exist.
         deviceRoot = self._dmd.getDmdRoot("Devices")
         device = deviceRoot.findDeviceByIdExact(target)
@@ -43,6 +38,7 @@ class CloudFoundryFacade(ZuulFacade):
         perfConf = self._dmd.Monitors.getPerformanceMonitor(collector)
         jobStatus = perfConf.addDeviceCreationJob(deviceName=target,
                 devicePath=CLOUDFOUNDRY_DEVICE_PATH,
+                performanceMonitor=collector,
                 discoverProto='python',
                 zProperties=zProperties)
 

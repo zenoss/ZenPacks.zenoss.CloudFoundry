@@ -37,7 +37,7 @@ var addCloudFoundry = new Zenoss.Action({
                     id: "cloudfoundryPasswordField",
                     width: 200,
                     allowBlank: false
-                }/*, {
+                }, {
                     // TODO: enable use of different collectors
                     disabled: true,
                     xtype: 'combo',
@@ -65,7 +65,7 @@ var addCloudFoundry = new Zenoss.Action({
                             }
                         }
                     }
-                }*/],
+                }],
                 buttons: [{
                     xtype: 'DialogButton',
                     id: 'addCloudFoundrydevice-submit',
